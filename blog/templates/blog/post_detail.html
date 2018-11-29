@@ -1,0 +1,83 @@
+{% extends 'blog\base.html' %}
+{% load static %}
+{% block block1 %}
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Portfolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+	</head>
+	<body class="subpage">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="logo"><a href="{% url 'logout' %}">로그아웃</a></div>
+				<a href="{% url 'post_new' %}">글쓰기 </a> 
+			</header>
+
+		<!-- Header -->
+			<section id="One" class="wrapper style3">
+				<div class="inner">
+					<header class="align-center">
+						<p>{{post.created_date}}</p>
+						<h2>{{post.title}}</h2>
+					</header>
+				</div>
+			</section>
+
+		<!-- Text -->
+		<section id="two" class="wrapper style2">
+			<div class="inner">
+				<header class="align-right">
+					<p style="cursor:pointer" onclick="boarddelete()">삭제</p>
+				</header>
+				<div class="box">
+					<div class="content">
+						<p>{{post.text}}</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- comment -->
+		<section id="two" class="wrapper style2">
+			<div class="inner">
+				<h2>댓글</h2>
+				{% for i in comments %}
+				<div class="box">
+					<div class="content">
+						<h2>{{i.author}}</h2>
+						<p>{{i.created_date}}</p>
+						<p>{{i.text}}</p>
+					</div>
+				</div>
+				{% endfor %}
+				<header class="align-center">
+						<form method="POST">
+								{% csrf_token %}
+								{{ commentForm }}</br>
+						<input type="submit" value="댓글 달기"></input>
+						</form>
+				</header>
+			</div>
+		</section>
+			
+		<!-- Scripts -->
+		<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+		<script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
+		<script src="{% static 'assets/js/skel.min.js' %}"></script>
+		<script src="{% static 'assets/js/util.js' %}"></script>
+		<script src="{% static 'assets/js/main.js' %}"></script>
+
+		<script language="javascript">
+				function boarddelete()
+				{
+					location.href='/delete?pk={{post.pk}}';
+				}
+		</script>
+
+	</body>
+</html>
+{% endblock %}

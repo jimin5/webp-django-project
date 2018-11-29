@@ -1,0 +1,77 @@
+{% extends 'blog\base.html' %}
+{% load static %}
+{% block block1 %}
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Portfolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+	</head>
+	<body>
+
+		<!-- Header -->
+			<header id="header" class="alt">
+        <div class="logo"><a href="{% url 'logout' %}">로그아웃</a></div>
+        <a href="{% url 'post_new' %}">글쓰기 </a>
+				<a href="#menu">Category</a>
+			</header>
+
+		<!-- Nav -->
+			<nav id="menu">
+				<ul class="links">
+					{% for categori in categoris %}
+						<li><a href="?categori={{categori.categori_name}}">{{categori.categori_name}}</a></li>
+					{% endfor %}
+				</ul>
+			</nav>
+
+		<!-- Banner -->
+			<section class="banner full">
+				<article>
+					<img src="{% static 'images/slide01.jpg' %}" alt="" />
+					<div class="inner">
+						<header>
+							<p>Welcome to <a href="#">{{user.username}}</a>'s Portfolio blog</p>
+							<h2>{{user.username}}</h2>
+						</header>
+					</div>
+				</article>
+			</section>
+
+		<!-- Items -->
+			<section id="one" class="wrapper style2">
+				<div class="inner">
+					<div class="grid-style">
+						{% for i in post %}
+						<div>
+							<div class="box">
+								<div class="content">
+									<header class="align-center">
+										<p>{{i.created_date}}</p>
+										<h2>{{i.title}}</h2>
+									</header>
+									<p>{{i.text}}</p>
+									<footer class="align-center">
+										<a href="{% url 'post_detail' pk=i.pk %}" class="button alt">자세히 보기</a>
+									</footer>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				
+			</section>
+
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
+			<script src="{% static 'assets/js/skel.min.js' %}"></script>
+			<script src="{% static 'assets/js/util.js' %}"></script>
+      <script src="{% static 'assets/js/main.js' %}"></script>
+
+	</body>
+</html>
+{% endblock %}

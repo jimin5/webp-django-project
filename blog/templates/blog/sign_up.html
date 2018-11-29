@@ -1,0 +1,16 @@
+{% load static %}
+<html>
+	<head>
+    		<title>Portfolio</title>
+      		<meta charset="utf-8">
+      		<link rel="stylesheet" href="{% static 'sign_up.css' %}">
+      		<meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <form method = "POST">
+            {{userform}}
+            {% csrf_token %}</br></br>
+            <button type="submit"/>가입하기</button>
+        </form>
+    </body>
+</html>
